@@ -21,46 +21,98 @@
             margin: 0;
             padding: 20px;
             color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            overflow: hidden;
         }
         
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             animation: fadeIn 1s ease-in;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .login-dropdown {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        
+        .login-btn {
+            background-color: var(--hover-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            z-index: 1;
+            padding: 10px 0;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .show {
+            display: block;
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            margin-bottom: 5px;
             color: #2c3e50;
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #7f8c8d;
         }
         
         .setup-panel {
             background-color: var(--card-color);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
             transition: all 0.3s ease;
-        }
-        
-        .setup-panel:hover {
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            flex-shrink: 0;
         }
         
         .input-group {
-            margin: 20px 0;
+            margin: 15px 0;
         }
         
         label {
@@ -70,7 +122,7 @@
         }
         
         input {
-            padding: 12px 15px;
+            padding: 10px 15px;
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
@@ -79,16 +131,11 @@
             transition: border 0.3s;
         }
         
-        input:focus {
-            border-color: var(--hover-color);
-            outline: none;
-        }
-        
         button {
             background-color: var(--hover-color);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
@@ -96,201 +143,191 @@
             font-weight: 600;
         }
         
-        button:hover {
-            background-color: #0b7dda;
-            transform: translateY(-2px);
+        .tables-grid-container {
+            flex: 1;
+            overflow: auto;
+            padding: 10px;
+            margin: -10px;
         }
         
-        .tables-container {
+        .tables-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            padding-bottom: 20px;
         }
         
         .table-card {
             background-color: var(--card-color);
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             text-align: center;
-        }
-        
-        .table-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .table-card.free {
-            border-top: 5px solid var(--free-color);
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            border: 4px solid var(--free-color);
         }
         
         .table-card.occupied {
-            border-top: 5px solid var(--occupied-color);
+            border-color: var(--occupied-color);
         }
         
         .table-card.reserved {
-            border-top: 5px solid var(--reserved-color);
+            border-color: var(--reserved-color);
         }
         
         .table-number {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin: 10px 0;
+            margin: 5px 0;
         }
         
         .status {
-            font-size: 1rem;
-            padding: 5px 10px;
+            font-size: 0.9rem;
+            padding: 4px 8px;
             border-radius: 20px;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: 600;
         }
         
-        .free .status {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: var(--free-color);
-        }
-        
-        .occupied .status {
-            background-color: rgba(244, 67, 54, 0.2);
-            color: var(--occupied-color);
-        }
-        
-        .reserved .status {
-            background-color: rgba(255, 193, 7, 0.2);
-            color: var(--reserved-color);
+        .reservation-info {
+            font-size: 0.8rem;
+            margin: 5px 0;
+            color: #555;
+            word-break: break-word;
         }
         
         .actions {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: auto;
         }
         
         .action-btn {
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
             border: none;
             font-weight: 600;
         }
         
-        .free-btn {
-            background-color: var(--free-color);
-            color: white;
+        .copyright {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #7f8c8d;
+            flex-shrink: 0;
         }
-        
-        .occupied-btn {
-            background-color: var(--occupied-color);
-            color: white;
-        }
-        
-        .reserve-btn {
-            background-color: var(--reserved-color);
-            color: #333;
-        }
-        
-        .action-btn:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
-        }
-        
-        .reservation-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
+
+        .free .status { background-color: rgba(76, 175, 80, 0.2); color: var(--free-color); }
+        .occupied .status { background-color: rgba(244, 67, 54, 0.2); color: var(--occupied-color); }
+        .reserved .status { background-color: rgba(255, 193, 7, 0.2); color: var(--reserved-color); }
+        .free-btn { background-color: var(--free-color); color: white; }
+        .occupied-btn { background-color: var(--occupied-color); color: white; }
+        .reserve-btn { background-color: var(--reserved-color); color: #333; }
+
+        .reservation-modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.5); 
+            z-index: 1000; 
+            justify-content: center; 
             align-items: center;
         }
         
-        .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            animation: modalAppear 0.4s ease-out;
+        .modal-content { 
+            background-color: white; 
+            padding: 25px; 
+            border-radius: 15px; 
+            width: 90%; 
+            max-width: 380px; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+            position: relative;
         }
         
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
+        .close-btn { 
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            font-size: 20px; 
+            cursor: pointer; 
             color: #7f8c8d;
+            background: none;
+            border: none;
+            padding: 5px;
         }
         
-        .form-group {
-            margin-bottom: 20px;
+        .form-group { 
+            margin-bottom: 15px; 
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            text-align: left;
+        .form-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            text-align: left; 
+            font-size: 14px;
         }
         
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+        .form-group input, 
+        .form-group select { 
+            width: 100%; 
+            padding: 8px; 
+            border: 2px solid #ddd; 
+            border-radius: 6px; 
+            font-size: 14px;
         }
         
-        .submit-reservation {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--reserved-color);
+        .submit-reservation { 
+            width: 100%; 
+            padding: 10px; 
+            background-color: var(--reserved-color); 
+            color: #333; 
+            font-weight: 600; 
+            margin-top: 10px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .cancel-btn {
+            background-color: #f1f1f1;
             color: #333;
-            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
         }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes modalAppear {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            opacity: 0;
-        }
-        
-        @media (max-width: 768px) {
-            .tables-container {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+        @media (max-width: 600px) {
+            .tables-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 10px;
+            }
+            .table-card {
+                height: 160px;
+                padding: 12px;
+            }
+            .table-number {
+                font-size: 1.3rem;
+            }
+            .action-btn {
+                font-size: 12px;
+                padding: 5px 8px;
             }
         }
     </style>
@@ -298,6 +335,15 @@
 <body>
     <div class="container">
         <header>
+            <div class="login-dropdown">
+                <button onclick="toggleDropdown()" class="login-btn">
+                    <span id="currentUser">Select Location</span> ▼
+                </button>
+                <div id="dropdown" class="dropdown-content">
+                    <a href="#" onclick="selectLocation('Northridge_Tulsi', 24)">Northridge_Tulsi (24 tables)</a>
+                    <a href="#" onclick="selectLocation('Other_Location', 12)">Other Location (12 tables)</a>
+                </div>
+            </div>
             <h1>TableZen</h1>
             <div class="subtitle">Smart Table Management Made Simple</div>
         </header>
@@ -306,19 +352,25 @@
             <h2>Let's Get Started</h2>
             <div class="input-group">
                 <label for="tableCount">How many tables does your establishment have?</label>
-                <input type="number" id="tableCount" min="1" max="50" value="4">
+                <input type="number" id="tableCount" min="1" max="100" value="24">
             </div>
             <button id="createTablesBtn">Create Table Layout</button>
         </div>
         
-        <div class="tables-container" id="tablesContainer">
-            <!-- Tables will be generated here -->
+        <div class="tables-grid-container">
+            <div class="tables-grid" id="tablesContainer">
+                <!-- Tables will be generated here -->
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; <span id="currentYear"></span> MOHAMMED_TAHASSIR. All rights reserved.
         </div>
     </div>
     
     <div class="reservation-modal" id="reservationModal">
         <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
+            <button class="close-btn" id="closeModal">&times;</button>
             <h2>Reserve Table <span id="modalTableNumber"></span></h2>
             <form id="reservationForm">
                 <div class="form-group">
@@ -334,37 +386,49 @@
                     <input type="number" id="partySize" min="1" required>
                 </div>
                 <div class="form-group">
-                    <label for="specialRequests">Special Requests</label>
-                    <textarea id="specialRequests" rows="3" style="width: 100%; border: 2px solid #ddd; border-radius: 8px; padding: 10px;"></textarea>
+                    <label for="contactNumber">Contact Number</label>
+                    <input type="tel" id="contactNumber">
                 </div>
-                <button type="submit" class="submit-reservation">Confirm Reservation</button>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="cancelReservation">Cancel</button>
+                    <button type="submit" class="submit-reservation">Confirm Reservation</button>
+                </div>
             </form>
         </div>
     </div>
     
     <script>
+        // Static cache for table data
+        const tableDataCache = {};
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // Set current year for copyright
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Auto-select Northridge_Tulsi by default
+            selectLocation('Northridge_Tulsi', 24);
+            
             const setupPanel = document.getElementById('setupPanel');
             const tablesContainer = document.getElementById('tablesContainer');
             const tableCountInput = document.getElementById('tableCount');
             const createTablesBtn = document.getElementById('createTablesBtn');
             const reservationModal = document.getElementById('reservationModal');
             const closeModal = document.getElementById('closeModal');
+            const cancelReservation = document.getElementById('cancelReservation');
             const modalTableNumber = document.getElementById('modalTableNumber');
             const reservationForm = document.getElementById('reservationForm');
+            const reservationTimeInput = document.getElementById('reservationTime');
             
-            let currentTableCount = 0;
             let currentReservingTable = null;
             
             // Create tables based on user input
             createTablesBtn.addEventListener('click', function() {
                 const tableCount = parseInt(tableCountInput.value);
-                if (tableCount > 0 && tableCount <= 50) {
+                if (tableCount > 0 && tableCount <= 100) {
                     createTables(tableCount);
                     setupPanel.style.display = 'none';
-                    currentTableCount = tableCount;
                 } else {
-                    alert('Please enter a number between 1 and 50');
+                    alert('Please enter a number between 1 and 100');
                 }
             });
             
@@ -372,50 +436,67 @@
             function createTables(count) {
                 tablesContainer.innerHTML = '';
                 for (let i = 1; i <= count; i++) {
+                    // Initialize table data in cache
+                    if (!tableDataCache[i]) {
+                        tableDataCache[i] = {
+                            status: 'free',
+                            reservation: null
+                        };
+                    }
+                    
                     const tableCard = document.createElement('div');
-                    tableCard.className = 'table-card free pulse';
-                    tableCard.dataset.tableNumber = i;
-                    tableCard.innerHTML = `
-                        <div class="table-number">Table ${i}</div>
-                        <div class="status">Free</div>
-                        <div class="actions">
-                            <button class="action-btn free-btn" onclick="setTableStatus(${i}, 'free')">Mark as Free</button>
-                            <button class="action-btn occupied-btn" onclick="setTableStatus(${i}, 'occupied')">Mark as Occupied</button>
-                            <button class="action-btn reserve-btn" onclick="openReservationModal(${i})">Make Reservation</button>
-                        </div>
-                    `;
+                    updateTableCardUI(tableCard, i);
                     tablesContainer.appendChild(tableCard);
                 }
             }
             
+            // Update table card UI based on cache
+            function updateTableCardUI(tableCard, tableNumber) {
+                tableCard.className = `table-card ${tableDataCache[tableNumber].status}`;
+                tableCard.dataset.tableNumber = tableNumber;
+                
+                // Add reservation info if exists
+                let reservationInfo = '';
+                if (tableDataCache[tableNumber].reservation) {
+                    const res = tableDataCache[tableNumber].reservation;
+                    const resTime = new Date(res.time).toLocaleString();
+                    reservationInfo = `
+                        <div class="reservation-info">${res.name}</div>
+                        <div class="reservation-info">${resTime}</div>
+                        <div class="reservation-info">${res.partySize} people</div>
+                    `;
+                }
+                
+                tableCard.innerHTML = `
+                    <div class="table-number">Table ${tableNumber}</div>
+                    <div class="status">${tableDataCache[tableNumber].status.charAt(0).toUpperCase() + tableDataCache[tableNumber].status.slice(1)}</div>
+                    ${reservationInfo}
+                    <div class="actions">
+                        <button class="action-btn free-btn" onclick="setTableStatus(${tableNumber}, 'free')">Free</button>
+                        <button class="action-btn occupied-btn" onclick="setTableStatus(${tableNumber}, 'occupied')">Occupied</button>
+                        <button class="action-btn reserve-btn" onclick="openReservationModal(${tableNumber})">Reserve</button>
+                    </div>
+                `;
+            }
+            
             // Set table status (global function)
             window.setTableStatus = function(tableNumber, status) {
+                // Update cache
+                tableDataCache[tableNumber].status = status;
+                
+                // If setting to free, clear reservation
+                if (status === 'free') {
+                    tableDataCache[tableNumber].reservation = null;
+                }
+                
+                // Update UI
                 const tableCard = document.querySelector(`.table-card[data-table-number="${tableNumber}"]`);
                 if (tableCard) {
-                    // Remove all status classes
-                    tableCard.classList.remove('free', 'occupied', 'reserved', 'pulse');
-                    
-                    // Add new status class
-                    tableCard.classList.add(status);
-                    
-                    // Update status text
-                    const statusElement = tableCard.querySelector('.status');
-                    statusElement.textContent = status.charAt(0).toUpperCase() + status.slice(1);
-                    
-                    // Update status color
-                    statusElement.className = 'status';
-                    statusElement.classList.add(status);
-                    
-                    // Add pulse animation only for free tables
-                    if (status === 'free') {
-                        tableCard.classList.add('pulse');
-                    }
-                    
-                    // Create confetti effect when marking as free
-                    if (status === 'free') {
-                        createConfetti(tableCard);
-                    }
+                    updateTableCardUI(tableCard, tableNumber);
                 }
+                
+                // Log the change
+                console.log(`Table ${tableNumber} status updated to ${status}`, tableDataCache[tableNumber]);
             };
             
             // Open reservation modal
@@ -423,10 +504,41 @@
                 currentReservingTable = tableNumber;
                 modalTableNumber.textContent = tableNumber;
                 reservationModal.style.display = 'flex';
+                
+                // Set minimum reservation time to current time
+                const now = new Date();
+                // Adjust for timezone offset
+                const timezoneOffset = now.getTimezoneOffset() * 60000;
+                const localISOTime = new Date(now - timezoneOffset).toISOString().slice(0, 16);
+                reservationTimeInput.min = localISOTime;
+                
+                // If table is already reserved, pre-fill the form
+                if (tableDataCache[tableNumber].reservation) {
+                    const res = tableDataCache[tableNumber].reservation;
+                    document.getElementById('customerName').value = res.name;
+                    // Convert reservation time to local datetime format
+                    const resTime = new Date(res.time);
+                    const resTimeLocal = new Date(resTime - resTime.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                    document.getElementById('reservationTime').value = resTimeLocal;
+                    document.getElementById('partySize').value = res.partySize;
+                    document.getElementById('contactNumber').value = res.contact || '';
+                } else {
+                    // Clear form if no existing reservation
+                    reservationForm.reset();
+                    // Set default time to now + 30 minutes
+                    const defaultTime = new Date(now.getTime() + 30 * 60000);
+                    const defaultTimeLocal = new Date(defaultTime - defaultTime.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                    document.getElementById('reservationTime').value = defaultTimeLocal;
+                }
             };
             
             // Close modal
             closeModal.addEventListener('click', function() {
+                reservationModal.style.display = 'none';
+            });
+            
+            // Cancel reservation button
+            cancelReservation.addEventListener('click', function() {
                 reservationModal.style.display = 'none';
             });
             
@@ -437,80 +549,92 @@
                 const customerName = document.getElementById('customerName').value;
                 const reservationTime = document.getElementById('reservationTime').value;
                 const partySize = document.getElementById('partySize').value;
-                const specialRequests = document.getElementById('specialRequests').value;
+                const contactNumber = document.getElementById('contactNumber').value;
                 
-                // In a real app, you would save this data to a database
-                console.log(`Reservation for Table ${currentReservingTable}:`, {
-                    customerName,
-                    reservationTime,
-                    partySize,
-                    specialRequests
-                });
+                // Validate reservation time is not in the past
+                const selectedTime = new Date(reservationTime).getTime();
+                const now = new Date().getTime();
+                if (selectedTime < now) {
+                    alert('Reservation time cannot be in the past. Please select a future time.');
+                    return;
+                }
                 
-                // Update table status
-                setTableStatus(currentReservingTable, 'reserved');
+                // Update cache
+                tableDataCache[currentReservingTable].status = 'reserved';
+                tableDataCache[currentReservingTable].reservation = {
+                    name: customerName,
+                    time: reservationTime,
+                    partySize: partySize,
+                    contact: contactNumber
+                };
+                
+                // Update UI
+                const tableCard = document.querySelector(`.table-card[data-table-number="${currentReservingTable}"]`);
+                if (tableCard) {
+                    updateTableCardUI(tableCard, currentReservingTable);
+                }
                 
                 // Close modal and reset form
                 reservationModal.style.display = 'none';
                 reservationForm.reset();
                 
                 // Show success message
-                alert(`Table ${currentReservingTable} has been reserved successfully!`);
+                alert(`Table ${currentReservingTable} reserved for ${customerName} (${partySize} people) at ${new Date(reservationTime).toLocaleString()}`);
             });
-            
-            // Create confetti effect
-            function createConfetti(element) {
-                const rect = element.getBoundingClientRect();
-                const colors = ['#4CAF50', '#2196F3', '#FFC107', '#F44336', '#9C27B0'];
-                
-                for (let i = 0; i < 50; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.left = (rect.left + rect.width/2) + 'px';
-                    confetti.style.top = (rect.top + rect.height/2) + 'px';
-                    document.body.appendChild(confetti);
-                    
-                    const angle = Math.random() * Math.PI * 2;
-                    const velocity = 5 + Math.random() * 5;
-                    const x = Math.cos(angle) * velocity;
-                    const y = Math.sin(angle) * velocity;
-                    
-                    let posX = rect.left + rect.width/2;
-                    let posY = rect.top + rect.height/2;
-                    let opacity = 1;
-                    
-                    const animate = () => {
-                        posX += x;
-                        posY += y;
-                        opacity -= 0.02;
-                        
-                        confetti.style.left = posX + 'px';
-                        confetti.style.top = posY + 'px';
-                        confetti.style.opacity = opacity;
-                        confetti.style.transform = `rotate(${posX + posY}deg)`;
-                        
-                        if (opacity > 0) {
-                            requestAnimationFrame(animate);
-                        } else {
-                            confetti.remove();
-                        }
-                    };
-                    
-                    setTimeout(() => {
-                        confetti.style.opacity = 1;
-                        requestAnimationFrame(animate);
-                    }, i * 20);
-                }
-            }
             
             // Close modal when clicking outside
             window.addEventListener('click', function(e) {
                 if (e.target === reservationModal) {
                     reservationModal.style.display = 'none';
                 }
+                if (!e.target.matches('.login-btn')) {
+                    const dropdown = document.getElementById("dropdown");
+                    if (dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
+                }
             });
+            
+            // Check for expired reservations periodically
+            setInterval(checkReservations, 60000); // Check every minute
+            
+            function checkReservations() {
+                const now = new Date();
+                for (const tableNumber in tableDataCache) {
+                    const table = tableDataCache[tableNumber];
+                    if (table.status === 'reserved' && table.reservation) {
+                        const resTime = new Date(table.reservation.time);
+                        if (resTime < now) {
+                            // Reservation time has passed
+                            console.log(`Reservation for Table ${tableNumber} has expired`);
+                            table.status = 'free';
+                            table.reservation = null;
+                            const tableCard = document.querySelector(`.table-card[data-table-number="${tableNumber}"]`);
+                            if (tableCard) {
+                                updateTableCardUI(tableCard, tableNumber);
+                            }
+                        }
+                    }
+                }
+            }
         });
+        
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            document.getElementById("dropdown").classList.toggle("show");
+        }
+        
+        // Select location and set default table count
+        function selectLocation(locationName, tableCount) {
+            document.getElementById("currentUser").textContent = locationName;
+            document.getElementById("tableCount").value = tableCount;
+            document.getElementById("dropdown").classList.remove("show");
+            
+            // Auto-create tables if setup panel is hidden
+            if (document.getElementById("setupPanel").style.display === "none") {
+                createTables(tableCount);
+            }
+        }
     </script>
 </body>
 </html>
